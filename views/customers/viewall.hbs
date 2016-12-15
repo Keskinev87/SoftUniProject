@@ -1,0 +1,26 @@
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-1">
+            <a class="btn btn-default btn-s" href="/customers/create">Create New</a>
+        </div>
+    </div>
+</div>
+<div class="list-group">
+{{#each customers}}
+<div class="container body-content">
+    <div class="row margin-bottom-lg">
+        <div class="col-md-5">
+            <div class="row">
+                <a href="/customers/details/{{this.id}}" class="list-group-item">
+                    <h4 class="list-group-item-heading">Name: {{this.firstName}} {{this.lastName}}</h4>
+                    <p class="list-group-item-text">E-mail: {{this.email}}</p>
+                    <p class="list-group-item-text">Phone: {{this.telephone}}</p>
+                    <p class="list-group-item-text">Address: {{this.address}}</p>
+                    <p class="list-group-item-text">ID: {{this.pin}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+</div>
