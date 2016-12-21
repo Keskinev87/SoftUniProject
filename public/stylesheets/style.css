@@ -7057,7 +7057,7 @@ article .author  {
   content: '\2014 \00A0';
 }
 
-.margin-bottom-xs {margin-bottom: (@line-height-computed / 4);}
-.margin-bottom-sm {margin-bottom: (@line-height-computed / 2);}
-.margin-bottom-md {margin-bottom: @line-height-computed;}
-.margin-bottom-lg {margin-bottom: (@line-height-computed * 2);}
+.margin-bottom-xs {margin-bottom: 2px;}
+.margin-bottom-sm {margin-bottom: 2px;}
+.margin-bottom-md {margin-bottom: 2px;}
+.margin-bottom-lg {margin-bottom: 2px;}

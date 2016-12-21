@@ -2,6 +2,7 @@ const userController = require('./../controllers/user');
 const homeController = require('./../controllers/home');
 const customerController = require('./../controllers/customer')
 const singleVisitsController = require('./../controllers/singleVisit')
+const posController = require('./../controllers/pos')
 
 module.exports = (app) => {
     app.get('/', homeController.index);
@@ -20,5 +21,8 @@ module.exports = (app) => {
     app.get('/singleVisits/all', singleVisitsController.viewall)
     app.get('/singleVisits/create', singleVisitsController.createGet)
     app.post('/singleVisits/create', singleVisitsController.createPost)
+    app.get('/pos/initialview', posController.initialView)
+    app.post('/pos/sell', posController.reportTransaction)
+    app.get('/user/details/:id', userController.details)
 };
 

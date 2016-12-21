@@ -17,6 +17,7 @@ module.exports = (config) => {
     require('./../models/User');
     require('./../models/Customer')
     require('./../models/SingleVisit')
+    require('./../models/Transaction')
 };
 
 

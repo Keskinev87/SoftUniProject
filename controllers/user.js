@@ -71,6 +71,18 @@ module.exports = {
             })
         })
     },
+    details: (req, res) =>{
+        if (!req.isAuthenticated()){
+            let returnUrl = '/user/details/:id';
+            req.session.returnUrl = returnUrl;
+
+            res.redirect('/user/login');
+            return;
+        }
+        User.findById(req.params.id).then(user => {
+            res.render('user/details', {user: user})
+        })
+    },
 
     logout: (req, res) => {
         req.logOut();

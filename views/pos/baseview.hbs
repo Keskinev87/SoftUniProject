@@ -1,0 +1,123 @@
+<div class="container body-content">
+
+    <div class="col-sm-3">
+        <h2>Services:</h2>
+        {{#each singleVisit}}
+            <div class="row">
+                <a onclick="addToList('{{this.name}}','{{this.price}}')" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{this.name}}</h4>
+                    <p class="list-group-item-text">{{this.price}} лв</p>
+                </a>
+
+            </div>
+
+
+        {{/each}}
+    </div>
+
+    <div class="row col-sm-5 col-sm-offset-1">
+        <h2>Ordered items:</h2>
+        <table class="table" id="shopList">
+            <thead>
+            <tr>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Qty</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+       <div class = "pull-left col-md-6"> Total:<p id="totalSum">0</p></div>
+        <button type="button" class="btn btn-success col-md-6" onclick="reportSale()">Sell</button>
+
+
+    </div>
+
+    <div class="alert alert-success col-md-3 col-md-offset-2 hidden" id="saleAlert">
+        <strong>Sale was reported successfully!</strong>
+    </div>
+
+<script>
+    function addToList(name, price) {
+        let rowsCount = document.getElementById("shopList").rows.length
+
+        let isUnique = true
+        for (let i = 0; i < rowsCount; i++) {
+            if (name == document.getElementById("shopList").rows[i].cells[0].innerHTML) {
+                let itemQuantity = document.getElementById("shopList").rows[i].cells[2]
+                itemQuantity.innerHTML = String(Number(itemQuantity.innerHTML) + 1)
+                isUnique = false
+
+                break
+            }
+        }
+        if (isUnique){
+                let x = document.getElementById("shopList").insertRow(1);
+                let y = x.insertCell(0)
+                let z = x.insertCell(1)
+                let q = x.insertCell(2)
+
+                y.innerHTML = name
+                z.innerHTML = price
+                q.innerHTML = "1"
+
+
+        }
+
+        var total = document.getElementById("totalSum")
+
+
+        total.innerHTML = String(Number(total.innerHTML) +  Number(price))
+    }
+
+    function reportSale() {
+        let form = document.createElement("form")
+        form.style.visibility= "hidden"
+        form.method = "POST"
+        form.action = "/pos/sell"
+
+        let transactionPrice = document.createElement("input")
+        let user = document.createElement("input")
+        let date = document.createElement("input")
+
+        transactionPrice.value = Number(document.getElementById("totalSum").innerHTML)
+        transactionPrice.name = "price"
+
+        user.value = "{{user.id}}"
+        user.name = "user"
+
+        date.value = new Date()
+        date.name = "date"
+
+        form.appendChild(transactionPrice)
+        form.appendChild(user)
+        form.appendChild(date)
+
+        document.body.appendChild(form);
+
+        waitForElement($('#saleAlert').fadeIn(1000).removeClass('hidden').fadeOut(1000),function(){
+            form.submit()
+        })
+
+
+        function waitForElement(elementPath, callBack){
+            window.setTimeout(function(){
+                if($(elementPath).length){
+                    callBack(elementPath, $(elementPath));
+                }else{
+                    waitForElement(elementPath, callBack);
+                }
+            },2000)
+        }
+
+    }
+
+</script>
+
+</div>
+
+
+
+
